@@ -2,8 +2,6 @@ backend:
   name: git-gateway
   branch: main
 
-local_backend: true
-
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
 
@@ -12,6 +10,8 @@ collections:
     label: "Le mie Statue"
     folder: "content/statue"
     create: true
+    extension: "json" # Fondamentale: salva come .json
+    format: "json"    # Fondamentale: usa il formato JSON
     slug: "{{slug}}"
     fields:
       - { label: "Titolo", name: "title", widget: "string" }
