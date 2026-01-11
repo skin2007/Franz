@@ -3,55 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Francesco Furlani | Atelier di Scultura</title>
+    <title>Francesco Furlani | Atelier</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
     <style>
         :root {
             --bg: #FFFFFF;
+            --surface: #F9F9F9;
             --text: #111111;
+            --text-muted: #666666;
             --accent: #A67C52;
-            --border: #EAEAEA;
+            --border: #EEEEEE;
+            --shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
+        /* Base */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
 
-        /* --- NAV --- */
+        /* Navigazione */
         nav {
             position: fixed; top: 0; width: 100%; height: 70px;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 6%; z-index: 1000; border-bottom: 1px solid var(--border);
         }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; }
 
-        /* --- HERO --- */
-        .hero { padding: 140px 6% 60px; text-align: center; background: #fafafa; }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); line-height: 1.1; margin-bottom: 20px; }
-        .hero p { color: #666; max-width: 600px; margin: 0 auto 30px; font-size: 1.1rem; }
+        /* Hero */
+        .hero { padding: 140px 6% 60px; text-align: center; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 20px; }
+        .hero p { color: var(--text-muted); max-width: 600px; margin: 0 auto 35px; font-size: 1.1rem; }
 
-        /* --- GALLERY --- */
-        .section { padding: 60px 6%; }
+        /* Galleria */
+        .section { padding: 60px 6% 100px; }
         .work-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;
         }
-        .card { background: white; border-radius: 4px; overflow: hidden; border: 1px solid var(--border); transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-        .card-info { padding: 20px; }
-        .card-info h3 { font-family: 'Playfair Display', serif; margin-bottom: 5px; }
-        .card-info p { font-size: 0.9rem; color: #777; }
 
-        /* --- FOOTER --- */
-        footer { padding: 60px 6%; text-align: center; border-top: 1px solid var(--border); background: #fdfdfd; }
-        .admin-link { display: inline-block; margin-top: 20px; font-size: 0.7rem; text-transform: uppercase; color: #ccc; text-decoration: none; }
-        
-        @media (min-width: 768px) {
+        /* Card Statua */
+        .card { 
+            background: white; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); 
+            transition: var(--transition); opacity: 0; transform: translateY(20px);
+        }
+        .card.visible { opacity: 1; transform: translateY(0); }
+        .card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #f0f0f0; cursor: pointer; }
+        .card-info { padding: 20px; }
+        .card-info h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 6px; }
+        .card-info p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Storia */
+        .story { padding: 100px 6%; background: #111; color: white; display: flex; flex-direction: column; gap: 40px; }
+        .story-img { width: 100%; border-radius: 4px; grayscale: 100%; opacity: 0.8; }
+        .story-text h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
+
+        /* Footer */
+        footer { padding: 60px 6%; text-align: center; border-top: 1px solid var(--border); background: var(--surface); }
+        .admin-link { display: inline-block; margin-top: 30px; font-size: 0.7rem; text-transform: uppercase; color: #ccc; cursor: pointer; letter-spacing: 1px; }
+
+        /* Desktop */
+        @media (min-width: 900px) {
             .hero { padding: 180px 10% 100px; }
+            .section { padding: 60px 10% 120px; }
             .work-grid { grid-template-columns: repeat(3, 1fr); gap: 40px; }
+            .story { flex-direction: row; align-items: center; padding: 120px 10%; }
+            .story-img, .story-text { flex: 1; }
         }
     </style>
 </head>
@@ -62,8 +84,9 @@
     </nav>
 
     <header class="hero">
-        <h1>Scolpire l'Anima.</h1>
-        <p>Opere uniche fatte a mano, dove la materia incontra il mito. Atelier d'arte contemporanea.</p>
+        <h1>L'Anima nella Materia.</h1>
+        <p>Atelier di scultura artigianale. Ogni opera è un pezzo unico, plasmato a mano tra mito e realtà.</p>
+        <a href="#opere" style="color: var(--text); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Esplora Collezione ↓</a>
     </header>
 
     <main class="section" id="opere">
@@ -71,43 +94,99 @@
             </div>
     </main>
 
+    <section class="story" id="storia">
+        <img src="https://images.unsplash.com/photo-1569437061238-3f658c4f29c1?q=80&w=1000" class="story-img" alt="Genesi">
+        <div class="story-text">
+            <h2>La Genesi</h2>
+            <p>Dall'armatura grezza alla finitura acrilica, ogni scultura richiede settimane di dedizione. Non uso stampi: ogni ruga, ogni muscolo e ogni dettaglio delle armature è unico.</p>
+            <p style="margin-top: 20px; color: #888;">"Scolpire è dare un corpo ai propri pensieri oscuri."</p>
+        </div>
+    </section>
+
     <footer>
-        <p>© 2026 Francesco Furlani Atelier</p>
-        <a href="/admin/" class="admin-link">Area Riservata</a>
+        <p>© 2026 FRANCESCO FURLANI ATELIER</p>
+        <span class="admin-link" onclick="window.location.href='/admin/'">Accesso Riservato</span>
     </footer>
 
     <script>
-        // Funzione per caricare le opere (Mockup se JSON non trovato)
-        async function loadWorks() {
+        async function loadStatues() {
             const container = document.getElementById('statue-list');
+            const user = "skin2007";
+            const repo = "Franz";
+            const path = "content/statue";
+            
+            const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+
             try {
-                const res = await fetch('/statue.json');
-                const data = await res.json();
-                render(data.statue);
+                // 1. Legge la lista dei file nella cartella
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw new Error("API Limit o cartella non trovata");
+                const files = await response.json();
+
+                // 2. Filtra solo i file JSON e scarica il contenuto di ognuno
+                const statuePromises = files
+                    .filter(f => f.name.endsWith('.json'))
+                    .map(async f => {
+                        const res = await fetch(f.download_url);
+                        return res.json();
+                    });
+
+                const statue = await Promise.all(statuePromises);
+                
+                if (statue.length > 0) {
+                    render(statue);
+                } else {
+                    renderFallback();
+                }
+
             } catch (e) {
-                // Mockup Images di alta qualità se il sito è vuoto
-                const mocks = [
-                    { title: "Creatura Oscura", image: "https://images.unsplash.com/photo-1554188248-986adbb73be4?w=800", desc: "Argilla e acrilico." },
-                    { title: "Il Guardiano", image: "https://images.unsplash.com/photo-1549490349-8643362247b5?w=800", desc: "Studio anatomico." },
-                    { title: "Frammento", image: "https://images.unsplash.com/photo-1578321272176-b7bbc067985c?w=800", desc: "Pezzo unico." }
-                ];
-                render(mocks);
+                console.error("Errore caricamento:", e);
+                renderFallback();
             }
         }
 
         function render(items) {
             const container = document.getElementById('statue-list');
-            container.innerHTML = items.map(i => `
+            container.innerHTML = items.map((i, index) => `
                 <div class="card">
-                    <img src="${i.image}" alt="${i.title}">
+                    <img src="${i.image}" alt="${i.title}" onclick="window.open('${i.image}', '_blank')">
                     <div class="card-info">
                         <h3>${i.title}</h3>
                         <p>${i.desc || i.body || ''}</p>
                     </div>
                 </div>
             `).join('');
+
+            // Animazione apparizione fluida
+            setTimeout(() => {
+                document.querySelectorAll('.card').forEach((c, i) => {
+                    setTimeout(() => c.classList.add('visible'), i * 100);
+                });
+            }, 100);
         }
-        loadWorks();
+
+        function renderFallback() {
+            // Se non ci sono dati, mostra i mockup per non lasciare il sito vuoto
+            const mocks = [
+                { title: "Esempio Opera 1", image: "https://images.unsplash.com/photo-1554188248-986adbb73be4?w=800", desc: "Aggiungi statue dall'area admin." },
+                { title: "Esempio Opera 2", image: "https://images.unsplash.com/photo-1549490349-8643362247b5?w=800", desc: "Aggiungi statue dall'area admin." }
+            ];
+            render(mocks);
+        }
+
+        // Avvio
+        loadStatues();
+
+        // Netlify Identity Redirect
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
     </script>
 </body>
 </html>
