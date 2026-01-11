@@ -3,71 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Francesco Furlani | Atelier</title>
+    <title>Francesco Furlani | Atelier di Scultura</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
     <style>
         :root {
-            --bg: #F9F9F9;
-            --surface: #FFFFFF;
-            --text: #1A1A1A;
-            --accent: #A67C52;
-            --border: #EEEEEE;
-            --shadow: 0 4px 20px rgba(0,0,0,0.05);
+            --bg: #FFFFFF;
+            --surface: #F8F8F8;
+            --text: #111111;
+            --text-muted: #777777;
+            --accent: #A67C52; /* Colore terra/argilla */
+            --border: #EAEAEA;
+            --transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
+        /* Reset Professionale */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            color: var(--text);
+            overflow-x: hidden;
+        }
 
-        /* --- NAV --- */
+        /* --- NAVIGAZIONE --- */
         nav {
             position: fixed; top: 0; width: 100%; height: 70px;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 6%; z-index: 1000; border-bottom: 1px solid var(--border);
+            padding: 0 6%; z-index: 1000;
+            border-bottom: 1px solid var(--border);
         }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; }
-        .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; margin-left: 25px; display: none; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; letter-spacing: -0.5px; }
+        .nav-links { display: none; } /* Su desktop apparirà */
 
-        /* --- HERO --- */
-        .hero { padding: 140px 6% 60px; text-align: center; }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 7vw, 4.5rem); line-height: 1.1; margin-bottom: 20px; }
-        .hero p { color: #666; max-width: 600px; margin: 0 auto 40px; font-size: 1.1rem; }
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 140px 6% 60px;
+            text-align: center;
+            background: linear-gradient(180deg, #FDFDFD 0%, #F5F5F5 100%);
+        }
+        .hero h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: clamp(2.8rem, 8vw, 5.5rem); 
+            line-height: 1; margin-bottom: 24px; 
+            letter-spacing: -1px;
+        }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px; }
         
-        /* --- GALLERY GRID --- */
-        .gallery-container { padding: 40px 6% 100px; }
+        /* Bottone Mobile-First */
+        .btn {
+            display: inline-block; padding: 18px 40px; background: var(--text); color: white;
+            text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 1px; transition: var(--transition);
+        }
+        .btn:hover { transform: scale(1.05); background: var(--accent); }
+
+        /* --- GALLERIA OPERE --- */
+        .gallery-section { padding: 80px 6%; }
+        .section-label { color: var(--accent); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; display: block; margin-bottom: 12px; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 40px; }
+
         .work-grid {
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 30px; 
+            gap: 24px; 
         }
 
-        /* --- STATUA CARD (Generata da JS) --- */
-        .card {
-            background: var(--surface); border-radius: 12px; overflow: hidden;
-            box-shadow: var(--shadow); transition: transform 0.3s ease; border: 1px solid var(--border);
+        /* Card Statua */
+        .work-card {
+            background: var(--bg); border-radius: 4px; overflow: hidden;
+            transition: var(--transition); opacity: 0; transform: translateY(30px);
         }
-        .card:hover { transform: translateY(-5px); }
-        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #eee; }
-        .card-content { padding: 20px; }
-        .card-content h3 { font-family: 'Playfair Display', serif; margin-bottom: 8px; font-size: 1.2rem; }
-        .card-content p { font-size: 0.9rem; color: #777; line-height: 1.4; }
+        .work-card.visible { opacity: 1; transform: translateY(0); }
+        
+        .work-card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; transition: var(--transition); cursor: pointer; }
+        .work-card:hover img { transform: scale(1.03); }
+        
+        .work-info { padding: 20px 0; }
+        .work-info h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 6px; }
+        .work-info p { color: var(--text-muted); font-size: 0.95rem; }
 
-        /* --- STORY --- */
-        .story { padding: 80px 6%; background: #111; color: white; display: flex; flex-direction: column; gap: 40px; }
-        .story-text h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
-        .story-img { width: 100%; border-radius: 8px; filter: grayscale(1); }
+        /* --- STORIA (GENESI) --- */
+        .story { padding: 80px 6%; background: #111; color: white; }
+        .story img { width: 100%; border-radius: 4px; margin-bottom: 30px; opacity: 0.7; }
+        .story h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 20px; }
+        .story p { color: #AAA; font-size: 1.1rem; margin-bottom: 24px; line-height: 1.8; }
 
         /* --- FOOTER --- */
-        footer { padding: 40px 6%; text-align: center; border-top: 1px solid var(--border); font-size: 0.8rem; color: #999; }
-        .admin-link { margin-top: 20px; display: inline-block; cursor: pointer; text-decoration: underline; }
+        footer { padding: 60px 6%; text-align: center; border-top: 1px solid var(--border); background: var(--surface); }
+        .admin-link { margin-top: 40px; display: block; color: #CCC; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
 
-        /* Mobile */
-        @media (min-width: 768px) {
-            .nav-links a { display: inline-block; }
-            .story { flex-direction: row; align-items: center; padding: 100px 10%; }
-            .story-text, .story-img { flex: 1; }
+        /* Responsive Desktop */
+        @media (min-width: 900px) {
+            .nav-links { display: flex; gap: 30px; list-style: none; }
+            .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+            .hero { padding: 200px 10% 120px; }
+            .gallery-section { padding: 120px 10%; }
+            .work-grid { grid-template-columns: repeat(3, 1fr); gap: 40px; }
+            .story { display: flex; align-items: center; gap: 80px; padding: 120px 10%; }
+            .story-img-box, .story-text { flex: 1; }
         }
     </style>
 </head>
@@ -75,78 +115,99 @@
 
     <nav>
         <div class="logo">FRANCESCO FURLANI</div>
-        <div class="nav-links">
-            <a href="#opere">Opere</a>
-            <a href="#storia">Storia</a>
-            <a href="/admin/">Admin</a>
-        </div>
+        <ul class="nav-links">
+            <li><a href="#opere">Opere</a></li>
+            <li><a href="#storia">Storia</a></li>
+            <li><a href="mailto:info@francescofurlani.it">Contatti</a></li>
+        </ul>
     </nav>
 
     <header class="hero">
-        <h1>L'Anima nella Materia.</h1>
-        <p>Esplora la collezione di sculture fatte a mano da Francesco Furlani. Pezzi unici tra mito e realtà.</p>
+        <h1>L'Anima<br>nella Materia.</h1>
+        <p>Atelier di scultura artigianale. Ogni opera è un pezzo unico modellato a mano, dove il mito incontra la materia grezza.</p>
+        <a href="#opere" class="btn">Esplora la Galleria</a>
     </header>
 
-    <main class="gallery-container" id="opere">
+    <section class="gallery-section" id="opere">
+        <span class="section-label">Collezione</span>
+        <h2 class="section-title">Le Opere</h2>
+        
         <div class="work-grid" id="statue-list">
-            <p>Caricamento opere...</p>
+            <p>Caricamento in corso...</p>
         </div>
-    </main>
+    </section>
 
     <section class="story" id="storia">
+        <div class="story-img-box">
+            <img src="https://images.unsplash.com/photo-1569437061238-3f658c4f29c1?q=80&w=1000" alt="Work in Progress">
+        </div>
         <div class="story-text">
             <h2>La Genesi</h2>
-            <p>Dall'armatura metallica all'ultima sfumatura di colore, ogni opera è un viaggio di settimane. Francesco modella l'argilla per catturare non solo la forma, ma l'essenza stessa del soggetto.</p>
+            <p>Il mio lavoro inizia nel silenzio, dal blocco di argilla che attende di essere ascoltato. Non uso stampi, non accetto scorciatoie: ogni texture, ogni ruga, ogni dettaglio dell'armatura è frutto di giorni di lavoro paziente.</p>
+            <p>Scolpire per me significa estrarre una storia dalla terra e fissarla per sempre in un gesto immobile.</p>
         </div>
-        <img src="https://images.unsplash.com/photo-1569437061238-3f658c4f29c1?q=80&w=1000" class="story-img" alt="Work in progress">
     </section>
 
     <footer>
-        <p>© 2026 Francesco Furlani | Atelier di Scultura</p>
-        <a href="/admin/" class="admin-link">Area Riservata Artista</a>
+        <p>© 2026 FRANCESCO FURLANI ATELIER</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; color: var(--text-muted);">Handmade in Italy</p>
+        <span class="admin-link" onclick="window.location.href='/admin/'">Area Riservata</span>
     </footer>
 
     <script>
-        // --- FUNZIONE PER CARICARE LE STATUE ---
-        async function loadStatues() {
-            const listContainer = document.getElementById('statue-list');
+        async function fetchStatues() {
+            const container = document.getElementById('statue-list');
             
             try {
-                // Cerchiamo il file generato dal CMS
-                const response = await fetch('/statue.json');
-                if (!response.ok) throw new Error('File non trovato');
+                // Cerchiamo il file JSON che il CMS genera
+                // Nota: In Decap CMS è meglio configurare l'output in un unico JSON 
+                // o mappare una cartella di file JSON.
+                const response = await fetch('/statue.json'); 
+                if (!response.ok) throw new Error();
                 
                 const data = await response.json();
                 renderStatues(data.statue);
-            } catch (err) {
-                console.log("Dati non trovati, carico mock-up di esempio...");
-                // Se non ci sono dati, carichiamo dei mockup così il sito è bello da subito
-                const mockData = [
-                    { title: "Esempio Statua 1", image: "https://images.unsplash.com/photo-1554188248-986adbb73be4?w=500", desc: "Argilla polimerica, 2026." },
-                    { title: "Esempio Statua 2", image: "https://images.unsplash.com/photo-1549490349-8643362247b5?w=500", desc: "Dettagli in acrilico." },
-                    { title: "Esempio Statua 3", image: "https://images.unsplash.com/photo-1578321272176-b7bbc067985c?w=500", desc: "Pezzo unico da collezione." }
+            } catch (e) {
+                // FALLBACK: Se non hai ancora caricato nulla dal CMS, mostriamo dei mockup
+                console.log("Nessun dato CMS trovato. Carico mockup...");
+                const mocks = [
+                    { title: "Guerriero d'Ombra", image: "https://images.unsplash.com/photo-1554188248-986adbb73be4?w=800", desc: "Argilla polimerica, 2026" },
+                    { title: "Il Guardiano", image: "https://images.unsplash.com/photo-1549490349-8643362247b5?w=800", desc: "Studio anatomico, Pezzo unico" },
+                    { title: "Bocca del Vuoto", image: "https://images.unsplash.com/photo-1578321272176-b7bbc067985c?w=800", desc: "Installazione LED e resina" }
                 ];
-                renderStatues(mockData);
+                renderStatues(mocks);
             }
         }
 
         function renderStatues(items) {
-            const listContainer = document.getElementById('statue-list');
-            listContainer.innerHTML = items.map(item => `
-                <div class="card">
-                    <img src="${item.image}" alt="${item.title}">
-                    <div class="card-content">
+            const container = document.getElementById('statue-list');
+            container.innerHTML = items.map(item => `
+                <div class="work-card">
+                    <img src="${item.image}" alt="${item.title}" onclick="openLightbox('${item.image}')">
+                    <div class="work-info">
                         <h3>${item.title}</h3>
                         <p>${item.desc || item.body || ''}</p>
                     </div>
                 </div>
             `).join('');
+
+            // Animazione apparizione
+            setTimeout(() => {
+                document.querySelectorAll('.work-card').forEach((card, i) => {
+                    setTimeout(() => card.classList.add('visible'), i * 150);
+                });
+            }, 100);
+        }
+
+        function openLightbox(src) {
+            // Semplice zoom al click
+            window.open(src, '_blank');
         }
 
         // Avvio
-        loadStatues();
+        fetchStatues();
 
-        // Supporto per Netlify Identity (permette di chiudere la modale dopo il login)
+        // Supporto Netlify Identity
         if (window.netlifyIdentity) {
             window.netlifyIdentity.on("init", user => {
                 if (!user) {
@@ -157,8 +218,5 @@
             });
         }
     </script>
-
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
 </body>
 </html>
